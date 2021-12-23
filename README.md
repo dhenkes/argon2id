@@ -16,7 +16,7 @@ import (
 
 func main() {
   // HashPassword returns the argon2 key (hash) of a given password.
-  hash, err := argon2id.HashPassword("securepassword", argon2id.DefaultOptions)
+  hash, err := argon2id.HashPassword("securepassword", "randomsalt", argon2id.DefaultOptions)
   if err != nil {
     log.Fatal(err)
   }
@@ -24,7 +24,7 @@ func main() {
   // VerifyPassword takes a given argon2 hash and a plaintext password and
   // compares both. It will return an error if an issue occurs or the given
   // password does not match the hash.
-  err := argon2id.VerifyPassword("securepassword", hash)
+  err = argon2id.VerifyPassword("securepassword", hash)
   if err == argon2id.ErrHashNotEqualPassword {
     log.Printf("Hash does not match password.")
     return
